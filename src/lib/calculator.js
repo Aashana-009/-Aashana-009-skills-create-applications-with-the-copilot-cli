@@ -25,10 +25,10 @@ function div(a, b) {
 }
 
 module.exports = {
-  add: (a, b) => a + b,
-  sub: (a, b) => a - b,
-  mul: (a, b) => a * b,
-  div: (a, b) => { if (b === 0) throw new Error(); return a / b; },
+  add,
+  sub,
+  mul,
+  div,
   mod: (a, b) => a % b,
   pow: (a, b) => a ** b,
   sqrt: (a) => Math.sqrt(a)
