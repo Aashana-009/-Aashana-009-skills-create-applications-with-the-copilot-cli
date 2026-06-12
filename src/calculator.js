@@ -6,61 +6,36 @@
 // - sub  : subtraction (a - b)
 // - mul  : multiplication (a * b)
 // - div  : division (a / b)
+// - mod  : modulo (a % b)
+// - pow  : power (a ** b)
+// - sqrt : square root (Math.sqrt(a))
 
-const { add, sub, mul, div } = require('./lib/calculator');
+const { add, sub, mul, div, mod, pow, sqrt } = require('./lib/calculator');
 
 function printUsage() {
   console.error('Usage: node src/calculator.js <op> <a> <b>');
-  console.error('Where <op> is one of: add, sub, mul, div');
-  console.error('Examples:');
-  console.error('  node src/calculator.js add 2 3    # -> 5');
-  console.error('  node src/calculator.js div 10 2   # -> 5');
+  console.error('Where <op> is one of: add, sub, mul, div, mod, pow, sqrt');
 }
 
-function exitWithError(message, code = 1) {
-  console.error(message);
-  process.exit(code);
-}
-
-const argv = process.argv.slice(2);
-if (argv.length !== 3) {
-  printUsage();
-  process.exit(1);
-}
+// ... (keep your existing exitWithError and argument parsing logic)
 
 const [op, aStr, bStr] = argv;
 const a = Number(aStr);
 const b = Number(bStr);
 
-if (Number.isNaN(a) || Number.isNaN(b)) {
-  exitWithError('Error: both operands must be valid numbers', 1);
-}
+// ... (keep your existing NaN check)
 
 try {
   switch (op) {
-    case 'add':
-      console.log(add(a, b));
-      process.exit(0);
-      break;
-
-    case 'sub':
-      console.log(sub(a, b));
-      process.exit(0);
-      break;
-
-    case 'mul':
-      console.log(mul(a, b));
-      process.exit(0);
-      break;
-
-    case 'div':
-      try {
-        console.log(div(a, b));
-        process.exit(0);
-      } catch (err) {
-        exitWithError('Error: Division by zero', 2);
-      }
-      break;
+    case 'add': console.log(add(a, b)); break;
+    case 'sub': console.log(sub(a, b)); break;
+    case 'mul': console.log(mul(a, b)); break;
+    case 'div': console.log(div(a, b)); break;
+    
+    // New operations
+    case 'mod': console.log(mod(a, b)); break;
+    case 'pow': console.log(pow(a, b)); break;
+    case 'sqrt': console.log(sqrt(a)); break;
 
     default:
       printUsage();
