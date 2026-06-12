@@ -7,6 +7,8 @@
 // - mul  : multiplication (a * b)
 // - div  : division (a / b)
 
+const { add, sub, mul, div } = require('./lib/calculator');
+
 function printUsage() {
   console.error('Usage: node src/calculator.js <op> <a> <b>');
   console.error('Where <op> is one of: add, sub, mul, div');
@@ -34,31 +36,36 @@ if (Number.isNaN(a) || Number.isNaN(b)) {
   exitWithError('Error: both operands must be valid numbers', 1);
 }
 
-switch (op) {
-  case 'add':
-    console.log(a + b);
-    process.exit(0);
-    break;
+try {
+  switch (op) {
+    case 'add':
+      console.log(add(a, b));
+      process.exit(0);
+      break;
 
-  case 'sub':
-    console.log(a - b);
-    process.exit(0);
-    break;
+    case 'sub':
+      console.log(sub(a, b));
+      process.exit(0);
+      break;
 
-  case 'mul':
-    console.log(a * b);
-    process.exit(0);
-    break;
+    case 'mul':
+      console.log(mul(a, b));
+      process.exit(0);
+      break;
 
-  case 'div':
-    if (b === 0) {
-      exitWithError('Error: Division by zero', 2);
-    }
-    console.log(a / b);
-    process.exit(0);
-    break;
+    case 'div':
+      try {
+        console.log(div(a, b));
+        process.exit(0);
+      } catch (err) {
+        exitWithError('Error: Division by zero', 2);
+      }
+      break;
 
-  default:
-    printUsage();
-    process.exit(1);
+    default:
+      printUsage();
+      process.exit(1);
+  }
+} catch (err) {
+  exitWithError(err.message || 'Error', 1);
 }
