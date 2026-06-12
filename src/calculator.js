@@ -18,12 +18,25 @@ function printUsage() {
 }
 
 // ... (keep your existing exitWithError and argument parsing logic)
-
+const argv = process.argv.slice(2);
 const [op, aStr, bStr] = argv;
 const a = Number(aStr);
 const b = Number(bStr);
 
-// ... (keep your existing NaN check)
+// Check if operator exists
+if (!op) {
+  printUsage();
+  process.exit(1);
+}
+
+// Logic to handle different argument counts
+if (op === 'sqrt') {
+  if (Number.isNaN(a)) exitWithError('Error: operand must be a valid number', 1);
+} else {
+  if (Number.isNaN(a) || Number.isNaN(b)) {
+    exitWithError('Error: both operands must be valid numbers', 1);
+  }
+}
 
 try {
   switch (op) {
@@ -31,12 +44,9 @@ try {
     case 'sub': console.log(sub(a, b)); break;
     case 'mul': console.log(mul(a, b)); break;
     case 'div': console.log(div(a, b)); break;
-    
-    // New operations
     case 'mod': console.log(mod(a, b)); break;
     case 'pow': console.log(pow(a, b)); break;
-    case 'sqrt': console.log(sqrt(a)); break;
-
+    case 'sqrt': console.log(sqrt(a)); break; // Only uses 'a'
     default:
       printUsage();
       process.exit(1);
