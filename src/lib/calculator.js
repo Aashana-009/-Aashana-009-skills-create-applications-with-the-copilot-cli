@@ -1,35 +1,18 @@
-// Library of calculator functions used by CLI and tests
-// Supported operations:
-// - add  : addition (a + b)
-// - sub  : subtraction (a - b)
-// - mul  : multiplication (a * b)
-// - div  : division (a / b) -- throws on division by zero
-
-function add(a, b) {
-  return a + b;
-}
-
-function sub(a, b) {
-  return a - b;
-}
-
-function mul(a, b) {
-  return a * b;
-}
-
-function div(a, b) {
-  if (b === 0) {
-    throw new Error('Division by zero');
-  }
+// src/lib/calculator.js
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => {
+  if (b === 0) throw new Error("Division by zero");
   return a / b;
-}
-
-module.exports = {
-  add,
-  sub,
-  mul,
-  div,
-  mod: (a, b) => a % b,
-  pow: (a, b) => a ** b,
-  sqrt: (a) => Math.sqrt(a)
 };
+
+// Add these new functions
+const modulo = (a, b) => a % b;
+const power = (base, exponent) => Math.pow(base, exponent);
+const squareRoot = (n) => {
+  if (n < 0) throw new Error("Cannot calculate square root of a negative number");
+  return Math.sqrt(n);
+};
+
+module.exports = { add, subtract, multiply, divide, modulo, power, squareRoot };
